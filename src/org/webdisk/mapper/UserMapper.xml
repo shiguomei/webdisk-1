@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.webdisk.mapper.UserMapper">
+	<insert id="register" parameterType="org.webdisk.pojo.User">
+		INSERT INTO t_user (user_name, user_password)VALUES(#{userName},
+		#{userPassword});
+
+	</insert>
+	<update id="create" parameterType="org.webdisk.pojo.User">
+		CREATE TABLE ${userName} (
+		file_id INT(11) NOT NULL AUTO_INCREMENT,
+		file_name VARCHAR(100) DEFAULT NULL,
+		file_size INT(11) DEFAULT NULL,
+		file_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE
+		CURRENT_TIMESTAMP,
+		file_path VARCHAR(300) DEFAULT NULL,
+		PRIMARY KEY (file_id)
+		) ;
+	</update>
+<resultMap type="org.webdisk.pojo.User" id="ddd">
+
+<result column="user_name" property="userName"/>
+
+</resultMap>
+<select id="login" parameterType="org.webdisk.pojo.User" resultMap="ddd">
+
+SELECT user_name FROM t_user WHERE user_name = #{userName} AND user_password = #{userPassword};
+</select>
+
+</mapper>
